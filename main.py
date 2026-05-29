@@ -4,10 +4,9 @@ import tkinter as tk
 import yt_dlp
 import threading
 from tkinter import ttk
+from tkinter import filedialog
 
-# from tkinter import filedialog
-
-# selected_path = filedialog.askdirectory()
+selected_path = ""
 
 
 def start_download_thread():
@@ -15,12 +14,21 @@ def start_download_thread():
     thread.start()
 
 
+def select_folder():
+    global selected_path
+    selected_path = filedialog.askdirectory()
+    path_label.config(text=selected_path)
+
 def download_video():
     try:
         title_label.config(text="")
         length_label.config(text="")
 
-        ydl_opts = {}
+        if not selected_path:
+            save_dir = "."
+        else:
+            save_dir = selected_path
+        ydl_opts = {"outtmpl": f"{save_dir}/%(title)s.%(ext)s"}
 
         url = url_input.get()
 
@@ -36,11 +44,9 @@ def download_video():
 
             minutes, seconds = divmod(video_duration, 60)
             length_label.config(text=f"Video Length : {minutes}:{seconds}")
-
             status_label.config(text="Downloading...", fg="blue")
             root.update_idletasks()
             ydl.download([url])
-
             status_label.config(text="Download Completed!", fg="green")
 
             url_input.delete(0, tk.END)
@@ -63,7 +69,7 @@ width, height = 450, 350
 left = int(diplay_width / 2 - width / 2)
 top = int(display_height / 2 - height / 2)
 
-root.title("Youtube Video Downloader")
+root.title("YouTube Video Downloader")
 root.geometry(f"{width}x{height}+{left}+{top}")
 root.iconbitmap("macos_big_sur_download_folder_icon_186042.ico")
 root.resizable(False, False)
@@ -100,5 +106,12 @@ title_label.pack(pady=2)
 
 length_label = tk.Label(root, text="")
 length_label.pack(pady=2)
+
+browse_btn = ttk.Button(root, text="Browse", command=select_folder)
+browse_btn.pack()
+
+path_label = ttk.Label(root, text="No folder selected", font=("Arial", 9, "italic"))
+path_label.pack(pady=5)
+
 
 root.mainloop()
