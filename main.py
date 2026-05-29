@@ -3,7 +3,9 @@
 import tkinter as tk
 import yt_dlp
 import threading
+from tkinter import filedialog
 
+selected_path = filedialog.askdirectory()
 
 def start_download_thread():
     thread = threading.Thread(target=download_video)
@@ -32,6 +34,7 @@ def download_video():
             ydl.download([url])
 
             status_label.config(text="Download Completed!", fg="green")
+            url_input.delete(0, tk.END)
     except Exception as e:
         print(e)
         status_label.config(text="Please enter valid url!!!", fg="red")
