@@ -8,6 +8,8 @@ from tkinter import filedialog
 
 selected_path = ""
 
+# Functions
+
 
 def start_download_thread():
     thread = threading.Thread(target=download_video)
@@ -19,17 +21,22 @@ def select_folder():
     selected_path = filedialog.askdirectory()
     path_label.config(text=selected_path)
 
+
 def download_video():
     try:
-        title_label.config(text="")
-        length_label.config(text="")
+        title_label.config(text="")  # Empty method after 1 cycle
+        length_label.config(text="")  # Empty method after 1 cycle
 
+        # if block for when user not select a file path
         if not selected_path:
             save_dir = "."
         else:
             save_dir = selected_path
+
+        # Telling to ydl-dlp about user browsed folder
         ydl_opts = {"outtmpl": f"{save_dir}/%(title)s.%(ext)s"}
 
+        # Assign ttk entry url input to url var
         url = url_input.get()
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -62,6 +69,7 @@ def download_video():
 
 root = tk.Tk()
 
+# root windows design
 diplay_width = root.winfo_screenwidth()
 display_height = root.winfo_screenheight()
 
@@ -74,6 +82,7 @@ root.geometry(f"{width}x{height}+{left}+{top}")
 root.iconbitmap("macos_big_sur_download_folder_icon_186042.ico")
 root.resizable(False, False)
 
+# labels
 
 label = tk.Label(root, text="Paste your YouTube video URL :-", font=("Arial", 11))
 label.pack(pady=10)
@@ -81,6 +90,10 @@ label.pack(pady=10)
 url_input = ttk.Entry(root, width=50)
 url_input.pack(pady=5)
 
+browse_btn = ttk.Button(root, text="Browse", command=select_folder)
+browse_btn.pack(pady=5)
+
+# ttk config for download button
 style = ttk.Style()
 style.theme_use("alt")
 style.configure(
@@ -98,6 +111,7 @@ down_btn = ttk.Button(
 )
 down_btn.pack(pady=10)
 
+# labels
 status_label = tk.Label(root, text="", font=("Arial", 10, "bold"))
 status_label.pack(pady=5)
 
@@ -106,9 +120,6 @@ title_label.pack(pady=2)
 
 length_label = tk.Label(root, text="")
 length_label.pack(pady=2)
-
-browse_btn = ttk.Button(root, text="Browse", command=select_folder)
-browse_btn.pack()
 
 path_label = ttk.Label(root, text="No folder selected", font=("Arial", 9, "italic"))
 path_label.pack(pady=5)
