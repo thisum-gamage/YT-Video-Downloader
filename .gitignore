@@ -1,0 +1,9 @@
+# PyInstaller temporary files
+build/
+*.spec
+dist/
+
+# Python temporary files
+__pycache__/
+*.pyc
+tempCodeRunnerFile.py
