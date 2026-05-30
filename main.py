@@ -101,7 +101,7 @@ root = tk.Tk()
 diplay_width = root.winfo_screenwidth()
 display_height = root.winfo_screenheight()
 
-width, height = 500, 500
+width, height = 500, 400
 left = int(diplay_width / 2 - width / 2)
 top = int(display_height / 2 - height / 2)
 
