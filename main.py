@@ -16,6 +16,17 @@ def start_download_thread():
     thread.start()
 
 
+def progress_hook(d):
+    if d["status"] == "downloading":
+        total_bytes = d.get("total_bytes") or d.get("total_bytes_approx", 1)
+        downloaded_bytes = d.get("downloaded_bytes", 0)
+
+        percentage = (downloaded_bytes / total_bytes) * 100
+
+        progress["value"] = percentage
+        root.update_idletasks()
+
+
 def select_folder():
     global selected_path
     selected_path = filedialog.askdirectory()
@@ -23,10 +34,11 @@ def select_folder():
 
 
 def download_video():
-    try:
-        title_label.config(text="")  # Empty method after 1 cycle
-        length_label.config(text="")  # Empty method after 1 cycle
-        size_label.config(text="")  # Empty method after 1 cycle
+    try:  # Empty method after 1 cycle
+        title_label.config(text="")
+        length_label.config(text="")
+        size_label.config(text="")
+        progress["value"] = 0
 
         # if block for when user not select a file path
         if not selected_path:
@@ -35,7 +47,10 @@ def download_video():
             save_dir = selected_path
 
         # Telling to ydl-dlp about user browsed folder
-        ydl_opts = {"outtmpl": f"{save_dir}/%(title)s.%(ext)s"}
+        ydl_opts = {
+            "outtmpl": f"{save_dir}/%(title)s.%(ext)s",
+            "progress_hooks": [progress_hook],
+        }
 
         # Assign ttk entry url input to url var
         url = url_input.get()
@@ -63,6 +78,8 @@ def download_video():
 
             root.update_idletasks()
             ydl.download([url])
+
+            progress["value"] = 100
 
             status_label.config(text="Download Completed!", fg="green")
 
@@ -133,6 +150,9 @@ length_label.pack(pady=2)
 
 size_label = tk.Label(root, text="")
 size_label.pack(pady=2)
+
+progress = ttk.Progressbar(root, orient="horizontal", length=300, mode="determinate")
+progress.pack(pady=10)
 
 path_label = ttk.Label(root, text="No folder selected", font=("Arial", 9, "italic"))
 path_label.pack(pady=5)
