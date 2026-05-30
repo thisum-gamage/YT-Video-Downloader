@@ -47,25 +47,11 @@ def download_video():
         else:
             save_dir = selected_path
 
-        # quality selection
-        selected_quality = quality_box.get()
-
-        if selected_quality == "720p":
-            video_format = "bestvideo[height<=720]+bestaudio/best"
-        elif selected_quality == "480p":
-            video_format = "bestvideo[height<=480]+bestaudio/best"
-        elif selected_quality == "360p":
-            video_format = "bestvideo[height<=360]+bestaudio/best"
-        elif selected_quality == "144p":
-            video_format = "bestvideo[height<=144]+bestaudio/best"
-        else:
-            video_format = "best"
-
         # Telling to ydl-dlp about user browsed folder etc
         ydl_opts = {
             "outtmpl": f"{save_dir}/%(title)s.%(ext)s",
             "progress_hooks": [progress_hook],
-            "format": video_format,
+            "format": "b",
         }
 
         # Assign ttk entry url input to url var
@@ -138,14 +124,6 @@ url_input.pack(side="left", padx=5)
 browse_btn = ttk.Button(input_frame, text="Browse", command=select_folder)
 browse_btn.pack(side="left", padx=5)
 
-quality_label = tk.Label(root, text="Select Quality:")
-quality_label.pack(pady=2)
-
-quality_box = ttk.Combobox(
-    root, values=["Best", "720p", "480p", "360p", "144p"], state="readonly"
-)
-quality_box.set("Best")
-quality_box.pack(pady=5)
 
 # ----------------------ttk config for download button-------------------------
 style = ttk.Style()
