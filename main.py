@@ -26,6 +26,7 @@ def download_video():
     try:
         title_label.config(text="")  # Empty method after 1 cycle
         length_label.config(text="")  # Empty method after 1 cycle
+        size_label.config(text="")  # Empty method after 1 cycle
 
         # if block for when user not select a file path
         if not selected_path:
@@ -44,16 +45,25 @@ def download_video():
             down_btn.config(state="disabled")
 
             info_dict = ydl.extract_info(url, download=False)
+
+            # Getting video details & config
             video_title = info_dict.get("title", None)
             video_duration = info_dict.get("duration", None)
-
-            title_label.config(text=f"Title : {video_title}")
-
             minutes, seconds = divmod(video_duration, 60)
+            bytes_size = (
+                info_dict.get("filesize") or info_dict.get("filesize_approx") or 0
+            )
+            video_size_mb = round(bytes_size / (1024 * 1024), 2)
+
+            # Label printing
+            title_label.config(text=f"Title : {video_title}")
             length_label.config(text=f"Video Length : {minutes}:{seconds}")
+            size_label.config(text=f"Size : {video_size_mb} MB")
             status_label.config(text="Downloading...", fg="blue")
+
             root.update_idletasks()
             ydl.download([url])
+
             status_label.config(text="Download Completed!", fg="green")
 
             url_input.delete(0, tk.END)
@@ -84,7 +94,7 @@ root.resizable(False, False)
 
 # labels
 
-label = tk.Label(root, text="Paste your YouTube video URL :-", font=("Arial", 11))
+label = tk.Label(root, text="Paste your YouTube video URL", font=("Arial", 11))
 label.pack(pady=10)
 
 url_input = ttk.Entry(root, width=50)
@@ -120,6 +130,9 @@ title_label.pack(pady=2)
 
 length_label = tk.Label(root, text="")
 length_label.pack(pady=2)
+
+size_label = tk.Label(root, text="")
+size_label.pack(pady=2)
 
 path_label = ttk.Label(root, text="No folder selected", font=("Arial", 9, "italic"))
 path_label.pack(pady=5)
