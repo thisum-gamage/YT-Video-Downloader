@@ -112,13 +112,16 @@ root.resizable(False, False)
 # labels
 
 label = tk.Label(root, text="Paste your YouTube video URL", font=("Arial", 11))
-label.pack(pady=10)
+label.pack(pady=8)
 
-url_input = ttk.Entry(root, width=50)
-url_input.pack(pady=5)
+input_frame = tk.Frame(root)
+input_frame.pack(pady=5)
 
-browse_btn = ttk.Button(root, text="Browse", command=select_folder)
-browse_btn.pack(pady=5)
+url_input = ttk.Entry(input_frame, width=50)
+url_input.pack(side="left", padx=5)
+
+browse_btn = ttk.Button(input_frame, text="Browse", command=select_folder)
+browse_btn.pack(side="left", padx=5)
 
 # ttk config for download button
 style = ttk.Style()
@@ -151,7 +154,22 @@ length_label.pack(pady=2)
 size_label = tk.Label(root, text="")
 size_label.pack(pady=2)
 
-progress = ttk.Progressbar(root, orient="horizontal", length=300, mode="determinate")
+style.configure(
+    "Custom.Horizontal.TProgressbar",
+    troughcolor="#ffffff",  # Background track color
+    background="#2ecc71",  # Fill/Progress bar color
+    bordercolor="#2c3e50",  # Border color of the widget
+    lightcolor="#2ecc71",  # Inner highlights (keeps it flat-colored)
+    darkcolor="#2ecc71",
+)
+
+progress = ttk.Progressbar(
+    root,
+    orient="horizontal",
+    length=300,
+    mode="determinate",
+    style="Custom.Horizontal.TProgressbar",
+)
 progress.pack(pady=10)
 
 path_label = ttk.Label(root, text="No folder selected", font=("Arial", 9, "italic"))
