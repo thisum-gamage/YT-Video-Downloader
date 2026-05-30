@@ -89,7 +89,7 @@ def download_video():
             down_btn.config(state="enabled")
     except Exception as e:
         print(e)
-        status_label.config(text="Please enter valid url!!!", fg="red")
+        status_label.config(text=str(e), fg="red")
         url_input.delete(0, tk.END)
         down_btn.config(state="enabled")
 
