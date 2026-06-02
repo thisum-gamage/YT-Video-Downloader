@@ -1,41 +1,121 @@
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![License](https://img.shields.io/badge/License-Open%20Source-green)
+![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
 # 🎬 YouTube Video Downloader
 
-An elegant, fast, and user-friendly desktop application built with Python to download YouTube videos effortlessly. It features a modern GUI, real-time progress tracking, and does not require external tools like ffmpeg for basic high-quality downloads.
+A modern, fast, and user-friendly desktop application built with Python for downloading YouTube videos effortlessly. Featuring a clean graphical interface, real-time download tracking, and high-quality video downloads without requiring additional tools such as FFmpeg.
 
 ---
 
 ## ✨ Features
 
-* **User-Friendly GUI:** Built using Python's `tkinter` and `ttk` for a clean interface.
-* **Smart Downloads:** Uses `yt_dlp` with single-stream format selection (`b`) ensuring seamless audio-video integration without extra dependencies.
-* **Real-time Progress Bar:** Visual feedback on download percentage and download speed status.
-* **Video Details Extractor:** Displays Video Title, Duration (Length), and File Size before/during download.
-* **Custom Save Directory:** Browse and select any folder to save your downloaded videos.
-* **Safe Error Handling:** Catch invalid URLs or network issues gracefully without crashing.
+* 🎨 **Modern GUI** — Built with Python's `tkinter` and `ttk` for a simple and intuitive user experience.
+* ⚡ **Fast Downloads** — Powered by `yt-dlp` for reliable and efficient video downloading.
+* 🎥 **High-Quality Video Support** — Downloads videos using single-stream formats with integrated audio and video.
+* 📊 **Real-Time Progress Tracking** — Live progress bar with download percentage updates.
+* ℹ️ **Video Information Preview** — Displays video title, duration, and file size before downloading.
+* 📁 **Custom Download Location** — Choose any folder to save your videos.
+* 🛡️ **Error Handling** — Gracefully handles invalid URLs, network errors, and download failures.
+* 💻 **Standalone Executable** — Run the application without installing Python.
 
 ---
 
-## 🚀 How to Run the App
+## 🚀 Getting Started
 
-### Option 1: Download the Executable (.exe) — *Recommended for Users*
-You don't need Python installed! Just head over to the **[Releases](https://github.com/thisum-gamage/YT-Video-Downloader/releases)** section, download the latest `main.exe`, and run it directly on your Windows PC.
+### Option 1 — Download the Executable (Recommended)
 
-### Option 2: Run from Source Code — *For Developers*
-If you want to run or modify the code locally, follow these steps:
+No Python installation is required.
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/thisum-gamage/YT-Video-Downloader.git](https://github.com/thisum-gamage/YT-Video-Downloader.git)
-   cd YT-Video-Downloader
-   
-2. **Install dependencies:**
-Make sure you have Python installed, then run:
-   ```bash
-   pip install yt-dlp
+Download the latest release from the GitHub Releases page and run the executable directly:
 
-3. **Run the application:**
-   
-   ```bash
-   python main.py
+```text
+Releases → main.exe
+```
 
-   
+---
+
+### Option 2 — Run from Source
+
+#### 1. Clone the Repository
+
+```bash
+git clone https://github.com/thisum-gamage/YT-Video-Downloader.git
+cd YT-Video-Downloader
+```
+
+#### 2. Install Dependencies
+
+```bash
+pip install yt-dlp
+```
+
+#### 3. Run the Application
+
+```bash
+python main.py
+```
+
+---
+
+## 🛠️ Building the Executable
+
+To create your own standalone executable using PyInstaller:
+
+```bash
+pip install pyinstaller
+
+pyinstaller --onefile --windowed \
+--icon=macos_big_sur_download_folder_icon_186042.ico \
+main.py
+```
+
+The generated executable will be available inside the:
+
+```text
+dist/
+```
+
+folder.
+
+---
+
+## 📂 Project Structure
+
+```text
+YT-Video-Downloader/
+│
+├── main.py
+├── .gitignore
+├── README.md
+└── macos_big_sur_download_folder_icon_186042.ico
+```
+
+---
+
+## 🧰 Built With
+
+* Python
+* Tkinter
+* ttk
+* yt-dlp
+* PyInstaller
+
+---
+
+## 🤝 Contributing
+
+Contributions, suggestions, and improvements are welcome.
+
+Feel free to fork the repository, create a new branch, and submit a pull request.
+
+---
+
+## ⭐ Support
+
+If you find this project useful, consider giving it a star on GitHub. It helps support future improvements and new projects.
+
+---
+
+## 📜 License
+
+This project is open-source and available for educational and personal use.
