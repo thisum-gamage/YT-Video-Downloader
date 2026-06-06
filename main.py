@@ -66,7 +66,8 @@ def download_video():
             # --------------------Getting video details & config-------------------------
             video_title = info_dict.get("title", None)
             video_duration = info_dict.get("duration", None)
-            minutes, seconds = divmod(video_duration, 60)
+            hours, remainder = divmod(video_duration, 3600)
+            minutes, seconds = divmod(remainder, 60)
             bytes_size = (
                 info_dict.get("filesize") or info_dict.get("filesize_approx") or 0
             )
@@ -74,7 +75,7 @@ def download_video():
 
             # ---------------------Label printing---------------------------
             title_label.config(text=f"Title : {video_title}")
-            length_label.config(text=f"Video Length : {minutes}:{seconds}")
+            length_label.config(text=f"Video Length : {hours}:{minutes}:{seconds}")
             size_label.config(text=f"Size : {video_size_mb} MB")
             status_label.config(text="Downloading...", fg="blue")
 
